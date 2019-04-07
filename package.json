@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "console.log(\"AAAA\")",
-    "start": "node index.js"
+    "start": "node ./node_modules/.bin/nodemon index.js"
   },
   "repository": {
     "type": "git",
@@ -18,10 +18,12 @@
   },
   "homepage": "https://github.com/tiendn/funny-nodejs#readme",
   "dependencies": {
+    "body-parser": "^1.18.3",
     "exceljs": "^1.9.0",
     "express": "^4.16.4",
     "google-images": "^2.1.0",
-    "nodemon": "^1.18.10"
+    "to-json": "^0.5.0-prerelease",
+    "xlsx-populate": "^1.19.1"
   },
   "nodemonConfig": {
     "ignore": [
@@ -29,5 +31,8 @@
       "docs/*"
     ],
     "delay": "2500"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
   }
 }

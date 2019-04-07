@@ -1,21 +1,27 @@
-var ExcelJS = require("exceljs/dist/es5/exceljs.browser");
-var GoogleImages = require("google-images");
+const express = require("express");
+const bodyParser = require("body-parser");
+var toJson = require("to-json");
 
-var client = new GoogleImages(
-  "006031170630015664588:gdmowpph51a",
-  "AIzaSyDgidm7cDuAz5_ub0G4khTWXo1-kNxdbPY"
-);
+const app = express();
+const port = 3000;
 
-function getProductImage(keyword) {
-  return client.search(`tiki ${keyword}`);
-}
+const { makeFile, getProductImageBase64 } = require("./excel");
 
-function readFile(filename) {
-  const workbook = new ExcelJS.Workbook();
-  workbook.xlsx.readFile(filename).then(data => {
-    // use workbook
-    console.log(data);
-  });
-}
+app.use(bodyParser.json({ type: "application/*+json" }));
 
-readFile("/Users/monkey/Desktop/x.xlsx");
+app.get("/", (req, res) => res.send("Hello World!"));
+app.get("/readfile", (req, res) => {
+	makeFile("/Users/monkey/Desktop/x.xlsx", "/Users/monkey/Desktop/y.xlsx").then(
+		data => {
+			res.send(data);
+		}
+	);
+	// getProductImageBase64("macbook air").then(data => {
+	// 	console.log(data.extension);
+	// });
+});
+
+app.listen(port, () => {
+	console.log(`-------------------------------------`);
+	console.log(`Example app listening on port ${port}!`);
+});
